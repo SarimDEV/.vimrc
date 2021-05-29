@@ -22,6 +22,9 @@ set smartindent
 set incsearch
 set scrolloff=8
 
+"improvement to help typescript
+set re=0
+
 "give more space for displaying messages.
 set cmdheight=2
 set updatetime=750
@@ -38,22 +41,19 @@ set clipboard=unnamed
 
 call plug#begin('~/.vim/plugins')
   Plug 'sheerun/vim-polyglot'
-  Plug 'jremmen/vim-ripgrep'
-  Plug 'mbbill/undotree'
   Plug 'prettier/vim-prettier'
   Plug 'morhetz/gruvbox'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
   Plug 'w0rp/ale'
+  Plug 'preservim/nerdtree'
+  Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 "ale config
 let g:ale_enabled = 0
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
-let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_fixers = {  'javascript': ['prettier']}
+let g:ale_fixers = {  'typescript': ['prettier']}
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 0
 let g:ale_fix_on_save = 0
@@ -83,9 +83,6 @@ nmap <leader>gd <Plug>(coc-definition)
 "prettier
 nmap <Leader>py <Plug>(Prettier)
 
-"fzf file explorer
-nnoremap <C-p> :GFiles<CR>
-
 "remap for line movement
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
@@ -98,5 +95,13 @@ inoremap lll <Esc>
 inoremap hhh <Esc>
 inoremap kkk <Esc>
 
+"remapping for NERDTree
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark 
+map <leader>nf :NERDTreeFind<cr>
 
-
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <leader>k :wincmd k<CR>
+nmap <silent> <leader>j :wincmd j<CR>
+nmap <silent> <leader>h :wincmd h<CR>
+nmap <silent> <leader>l :wincmd l<CR>
